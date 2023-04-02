@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Task Manager using GetX',
+      debugShowCheckedModeBanner: false,
       home: const HomePage(),
       initialBinding: HomeBinding(),
       builder: EasyLoading.init(),
