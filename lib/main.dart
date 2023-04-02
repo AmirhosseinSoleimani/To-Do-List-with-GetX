@@ -4,6 +4,8 @@ import 'package:task_manager_with_getx/modules/home/binding.dart';
 import 'modules/home/view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 
 
 void main() async{
@@ -21,6 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Task Manager using GetX',
       home: const HomePage(),
       initialBinding: HomeBinding(),
+      builder: EasyLoading.init(),
     );
   }
 }
