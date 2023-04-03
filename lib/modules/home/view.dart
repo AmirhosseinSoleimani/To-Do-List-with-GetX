@@ -32,6 +32,10 @@ class HomePage extends GetView<HomeController> {
                 children: [
                   ...controller.tasks.map(
                           (element) => LongPressDraggable(
+                              data: element,
+                              onDragStarted: () => controller.changeDeleting(true),
+                              onDraggableCanceled: (_,__) => controller.changeDeleting(false),
+                              onDragEnd: (_) => controller.changeDeleting(false),
                               feedback: Opacity(
                                 opacity: 0.8,
                               child: TaskCard(task: element),
@@ -46,9 +50,14 @@ class HomePage extends GetView<HomeController> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        child: const Icon(Icons.add),
+      floatingActionButton: Obx(
+        () => FloatingActionButton(
+          backgroundColor: controller.deleting.value ? Colors.red : Colors.blue,
+          onPressed: (){
+            print(controller.deleting.value);
+          },
+          child: Icon(controller.deleting.value ? Icons.delete : Icons.add),
+        ),
       ),
     );
   }
