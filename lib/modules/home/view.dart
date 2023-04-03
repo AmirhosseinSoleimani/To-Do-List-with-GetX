@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_manager_with_getx/core/utils/extension.dart';
-import 'package:task_manager_with_getx/data/models/task.dart';
 import 'package:task_manager_with_getx/modules/home/controller.dart';
 import 'package:task_manager_with_getx/modules/home/widgets/add_card.dart';
 import 'package:task_manager_with_getx/modules/home/widgets/task_card.dart';
@@ -25,18 +24,31 @@ class HomePage extends GetView<HomeController> {
                 ),
               ),
             ),
-            GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              children: [
-                TaskCard(
-                    task: const Task(title: 'title', icon: 0xe59c, color: '#fffffff')),
-                AddCard()
-              ],
+            Obx(
+              () => GridView.count(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                children: [
+                  ...controller.tasks.map(
+                          (element) => LongPressDraggable(
+                              feedback: Opacity(
+                                opacity: 0.8,
+                              child: TaskCard(task: element),
+                              ),
+                            child: TaskCard(task: element),
+                          )
+                  ).toList(),
+                    AddCard()
+                ],
+              ),
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        child: const Icon(Icons.add),
       ),
     );
   }
