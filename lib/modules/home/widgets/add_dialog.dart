@@ -69,6 +69,48 @@ class AddDialog extends StatelessWidget {
                   return null;
                 },
               ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: 5.0.wp,
+                  left: 5.0.wp,
+                  right: 5.0.wp,
+                  bottom: 2.0.wp),
+              child: Text(
+                  'Add to',
+                  style: TextStyle(
+                    fontSize: 14.0.sp,
+                    color: Colors.grey,
+                  ),
+              ),
+            ),
+            ...homeCtrl.tasks.map(
+                  (element) => Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 3.0.wp,
+                      horizontal: 5.0.wp,
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                            IconData(
+                                element.icon,
+                                fontFamily: 'MaterialIcons'),
+                            color: HexColor.fromHex(element.color),
+                        ),
+                        SizedBox(
+                          width: 3.0.wp,
+                        ),
+                        Text(
+                          element.title,
+                          style: TextStyle(
+                            fontSize: 12.0.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
             )
           ],
         ),
