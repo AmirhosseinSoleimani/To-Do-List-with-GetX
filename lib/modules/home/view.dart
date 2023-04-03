@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:task_manager_with_getx/core/utils/extension.dart';
 import 'package:task_manager_with_getx/modules/home/controller.dart';
 import 'package:task_manager_with_getx/modules/home/widgets/add_card.dart';
+import 'package:task_manager_with_getx/modules/home/widgets/add_dialog.dart';
 import 'package:task_manager_with_getx/modules/home/widgets/task_card.dart';
 import '../../data/models/task.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -58,7 +59,9 @@ class HomePage extends GetView<HomeController> {
           return Obx(
                 () => FloatingActionButton(
                   backgroundColor: controller.deleting.value ? Colors.red : Colors.blue,
-                  onPressed: (){},
+                  onPressed: (){
+                    Get.to(() => AddDialog(),transition: Transition.downToUp);
+                  },
                   child: Icon(controller.deleting.value ? Icons.delete : Icons.add),
             ),
           );
