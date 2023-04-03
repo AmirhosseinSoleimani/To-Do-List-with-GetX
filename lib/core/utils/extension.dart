@@ -12,10 +12,15 @@ extension ResponsiveText on double{
 
 extension HexColor on Color{
   static Color fromHex(String hexColorString) {
-    hexColorString = hexColorString.replaceAll('#', '');
-    if (hexColorString.length == 6) {
-      hexColorString = 'FF$hexColorString'; // 8 char with opacity 100%
-    }
-    return Color(int.parse(hexColorString, radix: 16));
+    final buffer = StringBuffer();
+    if (hexColorString.length == 6 || hexColorString.length == 7) buffer.write('ff');
+    buffer.write(hexColorString.replaceFirst('#', '')); // 8 char with opacity 100%
+    return Color(int.parse(buffer.toString(), radix: 16));
   }
+
+  String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'
+  '${alpha.toRadixString(16).padLeft(2, '0')}'
+  '${red.toRadixString(16).padLeft(2, '0')}'
+  '${green.toRadixString(16).padLeft(2, '0')}'
+  '${blue.toRadixString(16).padLeft(2, '0')}';
 }

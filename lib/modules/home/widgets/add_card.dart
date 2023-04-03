@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_manager_with_getx/core/utils/extension.dart';
+import 'package:task_manager_with_getx/core/values/colors.dart';
 import 'package:task_manager_with_getx/modules/home/controller.dart';
 import 'package:task_manager_with_getx/modules/home/widgets/icons.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import '../../../data/models/task.dart';
 
 class AddCard extends StatelessWidget {
   final homeCtrl = Get.find<HomeController>();
@@ -43,18 +46,48 @@ class AddCard extends StatelessWidget {
                         },
                       ),
                     ),
-                    Wrap(
-                      spacing: 2.0.wp,
-                      children: icons.map((e) => Obx((){
-                        final index = icons.indexOf(e);
-                        return ChoiceChip(
-                            label: e,
-                            selected: homeCtrl.chipIndex.value == index,
-                            onSelected: (bool selected){
-                              homeCtrl.chipIndex.value = selected ? index : 0;
-                            },
-                        );
-                      })).toList(),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5.0.wp),
+                      child: Wrap(
+                        spacing: 2.0.wp,
+                        children: icons.map((e) => Obx((){
+                          final index = icons.indexOf(e);
+                          return ChoiceChip(
+                              selectedColor: Colors.grey[200],
+                              pressElevation: 0,
+                              backgroundColor: Colors.white,
+                              label: e,
+                              selected: homeCtrl.chipIndex.value == index,
+                              onSelected: (bool selected){
+                                homeCtrl.chipIndex.value = selected ? index : 0;
+                              },
+                          );
+                        })).toList(),
+                      ),
+                    ),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: ColorManager.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          minimumSize: const Size(150, 40),
+                        ),
+                        onPressed: (){
+                          if(homeCtrl.formKey.currentState!.validate()){
+                            int icon = icons[homeCtrl.chipIndex.value].icon!.codePoint;
+                            String color = icons[homeCtrl.chipIndex.value].color!.toHex();
+                            var task = Task(
+                              title: homeCtrl.editCtrl.text,
+                              icon: icon,
+                              color: color,
+                            );
+                            Get.back();
+                            homeCtrl.addTask(task) ? EasyLoading.showSuccess('Create success'):
+                                EasyLoading.showError('Duplicated Task');
+                          }
+                        },
+                        child: const Text('Confirm'),
                     )
                   ],
                 )
