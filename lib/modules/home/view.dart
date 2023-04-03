@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_manager_with_getx/core/utils/extension.dart';
+import 'package:task_manager_with_getx/data/models/task.dart';
 import 'package:task_manager_with_getx/modules/home/controller.dart';
 import 'package:task_manager_with_getx/modules/home/widgets/add_card.dart';
+import 'package:task_manager_with_getx/modules/home/widgets/task_card.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
@@ -28,6 +30,8 @@ class HomePage extends GetView<HomeController> {
               shrinkWrap: true,
               physics: const ClampingScrollPhysics(),
               children: [
+                TaskCard(
+                    task: const Task(title: 'title', icon: 0xe59c, color: '#fffffff')),
                 AddCard()
               ],
             ),

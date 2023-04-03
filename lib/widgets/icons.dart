@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager_with_getx/core/values/icons.dart';
-import '../../../core/values/colors.dart';
+import '../core/values/colors.dart';
 
 List<Icon> getIcons() {
   return [

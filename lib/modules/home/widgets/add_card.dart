@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:task_manager_with_getx/core/utils/extension.dart';
 import 'package:task_manager_with_getx/core/values/colors.dart';
 import 'package:task_manager_with_getx/modules/home/controller.dart';
-import 'package:task_manager_with_getx/modules/home/widgets/icons.dart';
+import 'package:task_manager_with_getx/widgets/icons.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../../data/models/task.dart';
@@ -93,6 +93,8 @@ class AddCard extends StatelessWidget {
                 )
             ),
           );
+          homeCtrl.editCtrl.clear();
+          homeCtrl.changeChipIndex(0);
         },
         child: DottedBorder(
           color: Colors.grey[400]!,
