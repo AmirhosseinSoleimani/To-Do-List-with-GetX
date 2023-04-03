@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_manager_with_getx/core/values/colors.dart';
 import 'package:task_manager_with_getx/modules/home/controller.dart';
 import '../../../data/models/task.dart';
 import '../../../core/utils/extension.dart';
@@ -32,7 +33,7 @@ class TaskCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const StepProgressIndicator(
+          StepProgressIndicator(
               // TODO change after finish
               totalSteps: 100,
               currentStep: 80,
@@ -41,20 +42,46 @@ class TaskCard extends StatelessWidget {
               selectedGradientColor: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Colors.white, Colors.white],
+                colors: [ColorManager.blue.withOpacity(0.5), ColorManager.blue],
               ),
+            unselectedGradientColor: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Colors.white, Colors.white],
+            ),
           ),
           Padding(
             padding: EdgeInsets.all(6.0.wp),
             child: Icon(
-                IconData(task.icon,fontFamily: 'MaterialIcons'),color: color,
+                IconData(task.icon,fontFamily: 'MaterialIcons'),color: ColorManager.blue,
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+          Padding(
+            padding: EdgeInsets.all(6.0.wp),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  task.title,
+                  style: TextStyle(
+                    fontSize: 12.0.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(
+                  height: 2.0.wp,
+                ),
+                Text(
+                    '${task.taskList?.length ?? 0} Task',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey
+                    ),
+                ),
 
-            ],
+              ],
+            ),
           )
         ],
       ),
