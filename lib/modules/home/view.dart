@@ -4,6 +4,9 @@ import 'package:task_manager_with_getx/core/utils/extension.dart';
 import 'package:task_manager_with_getx/modules/home/controller.dart';
 import 'package:task_manager_with_getx/modules/home/widgets/add_card.dart';
 import 'package:task_manager_with_getx/modules/home/widgets/task_card.dart';
+import '../../data/models/task.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
@@ -50,14 +53,20 @@ class HomePage extends GetView<HomeController> {
           ],
         ),
       ),
-      floatingActionButton: Obx(
-        () => FloatingActionButton(
-          backgroundColor: controller.deleting.value ? Colors.red : Colors.blue,
-          onPressed: (){
-            print(controller.deleting.value);
-          },
-          child: Icon(controller.deleting.value ? Icons.delete : Icons.add),
-        ),
+      floatingActionButton: DragTarget<Task>(
+        builder: (_,__,___){
+          return Obx(
+                () => FloatingActionButton(
+                  backgroundColor: controller.deleting.value ? Colors.red : Colors.blue,
+                  onPressed: (){},
+                  child: Icon(controller.deleting.value ? Icons.delete : Icons.add),
+            ),
+          );
+        },
+        onAccept: (Task task){
+          controller.deleteTask(task);
+          EasyLoading.showSuccess('Delete Success');
+        },
       ),
     );
   }
